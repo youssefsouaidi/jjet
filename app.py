@@ -7,8 +7,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 # Configuration — à remplacer par tes vraies infos
-CLIENT_ID = "6d122907-3991-45f7-bbb5-b574e4349c76"
-SECRET = "obR/uxRNrS5dl6lOSmcq/ugHQgoi+DezI+qSr07+mHA="
+CLIENT_ID = "cf67633f-3bae-486e-af25-c004a3938d43"
+SECRET = "eVqar2O97az0CWfqbEHJdnircKh17dfUGD1BerlTVM0"
 ISSUER = CLIENT_ID  # en général, c’est le client_id
 AUDIENCE = "https://prod-uk-a.online.tableau.com"
 
