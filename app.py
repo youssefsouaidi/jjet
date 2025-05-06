@@ -2,9 +2,10 @@ from flask import Flask, jsonify
 import jwt
 import datetime
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 # Configuration — à remplacer par tes vraies infos
 CLIENT_ID = "6d122907-3991-45f7-bbb5-b574e4349c76"
 SECRET = "obR/uxRNrS5dl6lOSmcq/ugHQgoi+DezI+qSr07+mHA="
