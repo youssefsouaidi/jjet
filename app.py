@@ -8,9 +8,9 @@ CORS(app)
 
 @app.route("/generate-jwt", methods=["GET"])
 def generate_jwt():
-    secret = "votre_clé_secrète"
+    secret = "eVqar2O97az0CWfqbEHJdnircKh17dfUGD1BerlTVM0="
     payload = {
-        "iss": "your-client-id",
+        "iss": "1499c554-9265-4588-90c1-dcb83c4e278e",
         "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10),
         "sub": "user@email.com"
     }
