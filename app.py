@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -28,3 +29,7 @@ def get_token():
     except Exception as e:
         print("❌ Erreur :", e)
         return jsonify({"error": "Internal error", "details": str(e)}), 500
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
