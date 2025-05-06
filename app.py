@@ -11,18 +11,24 @@ def get_token():
         token_secret = request.args.get("token_secret")
 
         if not token_name or not token_secret:
-            return jsonify({"error": "Missing token_name or token_secret in parameters"}), 400
+            return jsonify({"error": "Missing token_name or token_secret"}), 400
 
         payload = {
             "credentials": {
                 "personalAccessTokenName": token_name,
                 "personalAccessTokenSecret": token_secret,
-                "site": { "contentUrl": "" }
+                "site": { "contentUrl": "raiimad61-4fe048d515" }
             }
         }
+
         headers = { "Content-Type": "application/json" }
 
-        response = requests.post("https://api.tableau.com/api/3.19/auth/signin", json=payload, headers=headers)
+        # ✅ URL correcte avec ton pod Tableau Cloud
+        url = "https://prod-uk-a.online.tableau.com/api/3.25/auth/signin"
+
+        response = requests.post(url, json=payload, headers=headers)
+        print("🔁 Tableau response:", response.text)
+
         response.raise_for_status()
         return jsonify(response.json())
 
