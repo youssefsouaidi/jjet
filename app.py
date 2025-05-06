@@ -2,7 +2,7 @@ import requests
 from flask import Flask, request, Response
 
 app = Flask(__name__)
-
+CORS(app, origins=["https://apex.oracle.com"]) 
 @app.route('/tableau-token')
 def tableau_token():
     token_name = request.args.get('token_name')
