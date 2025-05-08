@@ -1,21 +1,33 @@
-from flask import Flask, jsonify
+from flask import Flask, redirect
 import jwt
-import datetime
-from flask_cors import CORS
+import time
+import uuid
 
 app = Flask(__name__)
-CORS(app)
 
-@app.route("/generate-jwt", methods=["GET"])
-def generate_jwt():
-    secret = "eVqar2O97az0CWfqbEHJdnircKh17dfUGD1BerlTVM0="
+CLIENT_ID = "1499c554-9265-4588-90c1-dcb83c4e278e"
+CLIENT_SECRET = "eVqar2097azOCWfqbEHJdnircKh17dfUGD1BerITVMO=" 
+EMAIL = "raiimad61@gmail.com"
+
+TABLEAU_URL = (
+    "https://prod-uk-a.online.tableau.com/t/raiimad61-4fe048d515/views/Book22/Dashboard1"
+)
+
+@app.route("/")
+def generate_token_and_redirect():
     payload = {
-        "iss": "1499c554-9265-4588-90c1-dcb83c4e278e",
-        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10),
-        "sub": "raiimad61@gmail.com"
+        "iss": CLIENT_ID,
+        "sub": EMAIL,
+        "aud": "tableau",
+        "scp": ["tableau:views:embed"],
+        "exp": int(time.time()) + 600, 
+        "jti": str(uuid.uuid4())
     }
-    token = jwt.encode(payload, secret, algorithm="HS256")
-    return jsonify({"token": token})
+
+    token = jwt.encode(payload, CLIENT_SECRET, algorithm="HS256")
+
+    final_url = f"{TABLEAU_URL}?embed=yes&token={token}"
+    return redirect(final_url, code=302)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    app.run(debug=True, port=5000)
