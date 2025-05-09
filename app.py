@@ -1,5 +1,5 @@
 from flask import Flask,jsonify
-import jwt
+import jwt as pyjwt
 import uuid
 import datetime
 from creds import CLIENT_ID, CLIENT_SECRET_ID, CLIENT_SECRET_KEY, SITE, USER_EMAIL
@@ -21,7 +21,7 @@ def generatetoken():
         "kid": CLIENT_SECRET_ID
     }
 
-    token = jwt.encode(payload, CLIENT_SECRET_KEY, algorithm="HS256", headers=headers)
+    token = pyjwt.encode(payload, CLIENT_SECRET_KEY, algorithm="HS256", headers=headers)
 
     print(f"\n JWT TOKEN:\n{token}\n")
 
