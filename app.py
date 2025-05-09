@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask,jsonify
 import jwt
 import uuid
 import datetime
@@ -6,8 +6,8 @@ from creds import CLIENT_ID, CLIENT_SECRET_ID, CLIENT_SECRET_KEY, SITE, USER_EMA
 
 app = Flask(__name__)
 
-@app.route('/get-token', methods=['GET'])
-def get_token():
+@app.route('/')
+def generatetoken():
     payload = {
         "iss": CLIENT_ID,
         "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10),
@@ -22,6 +22,8 @@ def get_token():
     }
 
     token = jwt.encode(payload, CLIENT_SECRET_KEY, algorithm="HS256", headers=headers)
+
+    print(f"\n JWT TOKEN:\n{token}\n")
 
     return jsonify({"token": token})
     
